@@ -1,27 +1,28 @@
-import React from 'react';
+import React from "react";
 
-import FormInput from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import FormInput from "../form-input/form-input.component";
+import CustomButton from "../custom-button/custom-button.component";
+import { loginUserStart } from "../../redux/login/login.action";
+import { connect } from "react-redux";
 
-import './sign-in.styles.scss';
+import "./sign-in.styles.scss";
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: '',
-      password: ''
+      email: "",
+      password: "",
     };
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
-
-    this.setState({ email: '', password: '' });
+    this.props.loginUserStart(this.state);
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { value, name } = event.target;
 
     this.setState({ [name]: value });
@@ -29,32 +30,37 @@ class SignIn extends React.Component {
 
   render() {
     return (
-      <div className='sign-in'>
+      <div className="sign-in">
         <h2>I already have an account</h2>
         <span>Sign in with your email and password</span>
-
         <form onSubmit={this.handleSubmit}>
           <FormInput
-            name='email'
-            type='email'
+            name="email"
+            type="email"
             handleChange={this.handleChange}
             value={this.state.email}
-            label='email'
+            label="email"
             required
           />
           <FormInput
-            name='password'
-            type='password'
+            name="password"
+            type="password"
             value={this.state.password}
             handleChange={this.handleChange}
-            label='password'
+            label="password"
             required
           />
-          <CustomButton type='submit'> Sign in </CustomButton>
+          <div className="buttons">
+            <CustomButton type="submit"> Sign in </CustomButton>
+          </div>
         </form>
       </div>
     );
   }
 }
 
-export default SignIn;
+const mapDispatchToProps = (dispatch) => ({
+  loginUserStart: (user) => dispatch(loginUserStart(user)),
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);
