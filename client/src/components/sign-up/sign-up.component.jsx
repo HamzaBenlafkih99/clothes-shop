@@ -4,7 +4,7 @@ import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 import { registerUserStart } from "../../redux/login/login.action";
 import { connect } from "react-redux";
-import "./sign-up.styles.scss";
+import { SignUpContainer, SignUpTitle } from "./sign-up.styles";
 
 class SignUp extends React.Component {
   constructor() {
@@ -32,15 +32,15 @@ class SignUp extends React.Component {
   render() {
     const { username, email, password, confirmPassword } = this.state;
     return (
-      <div className="sign-up">
-        <h2 className="title">I do not have a account</h2>
+      <SignUpContainer>
+        <SignUpTitle>I do not have a account</SignUpTitle>
         <span>Sign up with your email and password</span>
         <form className="sign-up-form" onSubmit={this.handleSubmit}>
           <FormInput
             type="text"
             name="username"
             value={username}
-            handleChange={this.handleChange}
+            onChange={this.handleChange}
             label="Display Name"
             required
           />
@@ -48,7 +48,7 @@ class SignUp extends React.Component {
             type="email"
             name="email"
             value={email}
-            handleChange={this.handleChange}
+            onChange={this.handleChange}
             label="Email"
             required
           />
@@ -56,7 +56,7 @@ class SignUp extends React.Component {
             type="password"
             name="password"
             value={password}
-            handleChange={this.handleChange}
+            onChange={this.handleChange}
             label="Password"
             required
           />
@@ -64,13 +64,13 @@ class SignUp extends React.Component {
             type="password"
             name="confirmPassword"
             value={confirmPassword}
-            handleChange={this.handleChange}
+            onChange={this.handleChange}
             label="Confirm Password"
             required
           />
           <CustomButton type="submit">SIGN UP</CustomButton>
         </form>
-      </div>
+      </SignUpContainer>
     );
   }
 }
