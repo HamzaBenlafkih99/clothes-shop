@@ -10,6 +10,7 @@ import ShopPage from "./pages/shop/shop.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import Header from "./components/header/header.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
+import { getCollectionItemsStart } from "./redux/shop/shop.actions";
 
 class App extends React.Component {
   constructor() {
@@ -20,11 +21,9 @@ class App extends React.Component {
     };
   }
 
-  unsubscribeFromAuth = null;
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
+  componentDidMount() {
+    this.props.getCollectionItemsStart();
+  }
 
   render() {
     const { currentUser } = this.props;
@@ -52,4 +51,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  getCollectionItemsStart: () => dispatch(getCollectionItemsStart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
